@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+    <!-- Bootstrap CSS -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
+    <link rel="stylesheet" type="text/css" href="assets/css/custom.css">
+    <title>TimeSheet</title>
+</head>
+
+<body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+    <!-- Firebase Reference -->
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <script type="text/javascript" src="assets/javascript/logic.js"></script>
+
+    <div class="jumbotron-fluid  m-2 text-white text-center">
+        <h1><strong>Any Time is Train Time </strong> </h1>
+        <h4><strong>Choo Choo Chee Chee</strong></h4>
+    </div>
+
+    <div class="card m-3">
+        <div class="card-header bg-primary p-1">
+            <strong>Current Employees
+            </strong>
+        </div>
+        <div class="card-body p-1">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Train Name</th>
+                        <th scope="col">Destination</th>
+                        <th scope="col">Frequency (limit)</th>
+                        <th scope="col">Next Arrival</th>
+                        <th scope="col">Minutes Away</th>
+                    </tr>
+                </thead>
+                <tbody id="trainTable"></tbody>
+            </table>
+        </div>
+        <div id="trainInfo"></div>
+
+    </div>
+    <div class="card m-3">
+        <div class="card-header bg-primary p-1">
+            <strong>Add Train
+            </strong>
+        </div>
+            <form id="employeeForm" class="pt-3">
+                <div class="form-group">
+                    <label for="trainName">Train Name</label>
+                    <input id="trainName" type="text" class="form-control" >
+                </div>
+                <div class="form-group">
+                    <label for="destination">Destination</label>
+                    <input id="destination" type="text" class="data-own form-control" >
+
+                </div>
+                <div class="form-group">
+                    <label for="frequency">Frequence (limit) </label>
+                    <input id="frequency" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="nextArrival">Next Arrival </label>
+                    <input id="nextArrival" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="minutesAway">Minutes Away </label>
+                    <input id="minutesAway" type="text" class="form-control">
+                </div>
+                <!-- <input id="submit-bid" class="btn btn-primary float-right" type="submit" value="Submit"> -->
+                <button class="btn btn-primary float-left" id="submit-bid" type="submit">Submit</button>
+            </form>
+
+    </div>
+</body>
+
+</html>
