@@ -78,7 +78,7 @@ $(function () {
             var Traindiff = moment(now, 'minutes').diff(parseInt(firstTrainTime), 'minutes');
             var timeRemaining = Traindiff % sv.frequency;
             var minutesRemaining = (sv.frequency - timeRemaining);
-            var nextTrain = moment().add(minutesRemaining, 'minutes').format('h:mm a');
+            var nextTrain = moment().add(minutesRemaining, 'minutes').format('hh:mm a');
             //  console.log(firstTrainTime, Traindiff, timeRemaining, minutesRemaining);
 
             //------------   Time to next Train above------------------//
