@@ -7,6 +7,7 @@ var config = {
     storageBucket: "ucbe-bootcamp-db.appspot.com",
     messagingSenderId: "592523090499"
 };
+
 firebase.initializeApp(config);
 
 
@@ -97,5 +98,6 @@ $(function () {
         firstLoad=true;
         timeInterval= 10000
     }
+    refreshTrainTime();
 })
 

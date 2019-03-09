@@ -1,6 +1,7 @@
 # trainTime
 
-
+### Published URL for testing
+![Access URL](https://kanwarb.github.io/trainTime/)
 ## What is Train Time Schedule
 
 *  Train Time allows user to enter and get train schedules 
