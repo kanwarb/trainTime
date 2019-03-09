@@ -9,6 +9,8 @@ var config = {
 };
 firebase.initializeApp(config);
 
+
+
 $(function () {
 
     // create variable to reference db
@@ -20,13 +22,10 @@ $(function () {
     var trainName = '';
     var destination = '';
     var frequency = '';
-    //var trainTime ='';
-   //s var nextArrival = 0;
-    // var minutesAway = '';
-   // var firstTrainTime='';
-   //var nextTrainTime ='';
+    var firstLoad = false;
+    var timeInterval=1000;
 
-   
+
 
 
     $(document).on("click", "button[type=submit]", function (event) {
@@ -37,8 +36,8 @@ $(function () {
         frequency = $("#frequency").val().trim();
         trainTime = $("#trainTime").val().trim();
 
-        
-        var firstTrainTime = moment($("#trainTime").val().trim(),"HH:mm").format("HH:mm");;
+
+        var firstTrainTime = moment($("#trainTime").val().trim(), "HH:mm").format("HH:mm");;
 
 
         var newElement = {
@@ -48,7 +47,7 @@ $(function () {
             trainTime: firstTrainTime,
             dateAdded: firebase.database.ServerValue.TIMESTAMP
         };
-       // console.log(" first Train Time" ,firstTrainTime);
+        // console.log(" first Train Time" ,firstTrainTime);
 
         database.ref().push(newElement);
 
@@ -56,36 +55,47 @@ $(function () {
         $("#trainName").val("");
         $("#destination").val("");
         $("#frequency").val("");
-        $("#nextTrainTime").val(""); 
-        trainTime='';
-        firstTrainTime='';
-        
+        $("#trainTime").val("");
+        trainTime = '';
+        firstTrainTime = '';
+
     });
 
     // }
-    database.ref().on("child_added", function (snapshot) {
+   
+    function refreshTrainTime() {
+        $("#trainTable").empty();
+        database.ref().on("child_added", function (snapshot) {
 
-           var sv = snapshot.val();
-           var now = new Date();
+            var sv = snapshot.val();
+            var now = new Date();
 
-           //console.log(now.getMinutes());
-           //---------------------------Time----------------------//
+            //console.log(now.getMinutes());
+            //---------------------------Time----------------------//
 
-           var firstTrainTime = moment.unix(parseInt(sv.trainTime)).format("hh:mm");
-           var Traindiff = moment(now, 'minutes').diff(parseInt(firstTrainTime),'minutes');
-           var timeRemaining = Traindiff % sv.frequency;
-           var minutesRemaining = (sv.frequency - timeRemaining);
-           var nextTrain = moment().add(minutesRemaining, 'minutes').format('h:mm a');
-         //  console.log(firstTrainTime, Traindiff, timeRemaining, minutesRemaining);
-         
-           //------------   Time to next Train above------------------//
-       
-        $("#trainTable").append("<tr><td scope='col'>" + sv.trainName + "</td>" +
-            "<td scope='col'>" + sv.destination + "</td>" +
-            "<td scope='col'>" + sv.frequency + "</td>" +
-            "<td scope='col'>" + nextTrain + "</td>" +
-            "<td scope='col'>" + minutesRemaining + "</td> ></tr>");
+            var firstTrainTime = moment.unix(parseInt(sv.trainTime)).format("hh:mm");
+            var Traindiff = moment(now, 'minutes').diff(parseInt(firstTrainTime), 'minutes');
+            var timeRemaining = Traindiff % sv.frequency;
+            var minutesRemaining = (sv.frequency - timeRemaining);
+            var nextTrain = moment().add(minutesRemaining, 'minutes').format('h:mm a');
+            //  console.log(firstTrainTime, Traindiff, timeRemaining, minutesRemaining);
 
-    });
+            //------------   Time to next Train above------------------//
+            
+            $("#trainTable").append("<tr><td scope='col'>" + sv.trainName + "</td>" +
+                "<td scope='col'>" + sv.destination + "</td>" +
+                "<td scope='col'>" + sv.frequency + "</td>" +
+                "<td scope='col'>" + nextTrain + "</td>" +
+                "<td scope='col'>" + minutesRemaining + "</td> ></tr>");
+        });
+        console.log(timeInterval);
+    }
 
+    setInterval(refreshTrainTime,timeInterval);
+
+    if(!firstLoad){
+        firstLoad=true;
+        timeInterval= 10000
+    }
 })
+
